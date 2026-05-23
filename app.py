@@ -78,11 +78,57 @@ def home():
                 font-size: 18px;
             }
 
+            .social-bar {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .social-bar a {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                text-decoration: none;
+                color: white;
+                font-size: 15px;
+                font-weight: bold;
+                padding: 9px 16px;
+                border-radius: 8px;
+                background-color: darkblue;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                transition: background-color 0.2s, box-shadow 0.2s;
+            }
+
+            .social-bar a:hover {
+                background-color: navy;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            }
+
+            .social-bar img {
+                width: 18px;
+                height: 18px;
+                filter: brightness(0) invert(1);
+            }
+
         </style>
 
     </head>
 
     <body>
+
+        <div class="social-bar">
+            <a href="https://www.linkedin.com/in/sravan-branwal" target="_blank">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+                LinkedIn
+            </a>
+            <a href="https://github.com/sravan-kb" target="_blank">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                GitHub
+            </a>
+        </div>
 
         <h1>UPSC PYQ Search</h1>
 
@@ -107,8 +153,7 @@ def home():
         </form>
 
         <p class="footer-text">
-            With 💖 to ALL the Aspirants
-            built by one who walked this road for 8 years
+            With 💖 for ALL the Aspirants
         </p>
 
     </body>
