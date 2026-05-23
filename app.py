@@ -84,10 +84,12 @@ def home():
 
     <body>
 
-        <h1>UPSC PYQ Search Engine</h1>
+        <h1>UPSC PYQ Search</h1>
 
         <p class="tagline">
             Search UPSC Previous Year Questions instantly
+            <br>
+            <span>Starting with Prelims Paper-1 — Mains on the way 🚀</span>
         </p>
 
         <form action="/search" method="get">
@@ -106,6 +108,7 @@ def home():
 
         <p class="footer-text">
             With 💖 to ALL the Aspirants
+            built by one who walked this road for 8 years
         </p>
 
     </body>
