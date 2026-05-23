@@ -197,6 +197,8 @@ def search_questions(q: str):
         if word.lower() not in stop_words
     ]
 
+    words = words[:25]
+
     # If all words removed
     if len(words) == 0:
 
