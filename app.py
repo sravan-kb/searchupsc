@@ -305,7 +305,7 @@ def search_questions(q: str):
             body {{
                 font-family: Arial;
                 margin: 40px;
-                max-width: 1300px;
+                max-width: 900px;
                 line-height: 1.8;
                 background-color: #f5f5f5;
                 padding: 0 20px;;
@@ -324,7 +324,7 @@ def search_questions(q: str):
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                max-width: 1200px;
+                max-width: 800px;
             }}
 
             h2 {{
