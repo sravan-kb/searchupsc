@@ -305,8 +305,10 @@ def search_questions(q: str):
             body {{
                 font-family: Arial;
                 margin: 40px;
+                max-width: 900px;
                 line-height: 1.8;
                 background-color: #f5f5f5;
+                padding: 0 20px;;
             }}
 
             h1 {{
@@ -317,9 +319,12 @@ def search_questions(q: str):
             .question {{
                 background-color: white;
                 margin-bottom: 40px;
+                margin-left: auto;
+                margin-right: auto;
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                max-width: 800px;
             }}
 
             h2 {{
