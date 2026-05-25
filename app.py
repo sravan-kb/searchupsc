@@ -17,6 +17,10 @@ DATABASE_URL = os.getenv(
 # Create database engine
 engine = create_engine(DATABASE_URL)
 
+@app.get("/health")
+def health():
+    return {"status": "alive"}
+
 
 # HOME PAGE
 @app.get("/", response_class=HTMLResponse)
