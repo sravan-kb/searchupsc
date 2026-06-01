@@ -2,7 +2,7 @@ import os
 import re
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 from sqlalchemy import create_engine, text
 
 # Create FastAPI app
@@ -22,6 +22,27 @@ def health():
     return {"status": "alive"}
 
 
+# ROBOTS.TXT
+@app.get("/robots.txt", response_class=PlainTextResponse)
+def robots():
+    return """User-agent: *
+Allow: /
+
+Sitemap: https://upsc-pyq-search.onrender.com/sitemap.xml"""
+
+
+# SITEMAP.XML
+@app.get("/sitemap.xml", response_class=HTMLResponse)
+def sitemap():
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://upsc-pyq-search.onrender.com/</loc>
+    <priority>1.0</priority>
+  </url>
+</urlset>"""
+
+
 # HOME PAGE
 @app.get("/", response_class=HTMLResponse)
 def home():
@@ -31,8 +52,12 @@ def home():
 
     <head>
 
-        <title>UPSC PYQ Search Engine</title>
+        <title>UPSC PYQ Search Engine - Search Previous Year Questions by Keyword</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Search UPSC Previous Year Questions by keyword. Find Prelims GS Paper 1 questions with year and question number instantly. Covers 2024, 2025, 2026.">
+        <meta name="keywords" content="UPSC PYQ, UPSC previous year questions, UPSC prelims, IAS questions, UPSC search, UPSC 2024, UPSC 2025, UPSC 2026, UPSC GS Paper 1">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://upsc-pyq-search.onrender.com/">
 
         <style>
 
@@ -203,217 +228,83 @@ def search_questions(q: str):
 
     # Common stop words
     stop_words = {
-        "the",
-        "is",
-        "of",
-        "and",
-        "a",
-        "an",
-        "what",
-        "which",
-        "in",
-        "on",
-        "to",
-        "for",
-        "consider"
+        "the", "is", "of", "and", "a", "an",
+        "what", "which", "in", "on", "to", "for", "consider"
     }
 
     # Remove stop words
-    words = [
-        word
-        for word in words
-        if word.lower() not in stop_words
-    ]
+    words = [word for word in words if word.lower() not in stop_words]
 
     # If all words removed
     if len(words) == 0:
+        return "<h2>Please enter meaningful keywords.</h2>"
 
-        return """
-        <h2>Please enter meaningful keywords.</h2>
-        """
-
-    # Store SQL conditions
     conditions = []
-
-    # Store SQL parameters
     params = {}
 
-    # Build SQL conditions
     for i, word in enumerate(words):
-
-        conditions.append(
-            f"full_text ILIKE :word{i}"
-        )
-
+        conditions.append(f"full_text ILIKE :word{i}")
         params[f"word{i}"] = f"%{word}%"
 
-    # Join conditions with OR
     where_clause = " OR ".join(conditions)
 
-    # Build relevance score
     score_parts = []
-
     for i, word in enumerate(words):
-
-        score_parts.append(
-            f"""
-            CASE
-                WHEN full_text ILIKE :word{i}
-                THEN 1
-                ELSE 0
-            END
-            """
-        )
+        score_parts.append(f"""
+            CASE WHEN full_text ILIKE :word{i} THEN 1 ELSE 0 END
+        """)
 
     score_sql = " + ".join(score_parts)
 
-    # SQL query
     sql = f"""
-        SELECT
-            year,
-            question_number,
-            full_text,
-            ({score_sql}) AS score
-
+        SELECT year, question_number, full_text, ({score_sql}) AS score
         FROM questions
-
         WHERE {where_clause}
-
-        ORDER BY
-            score DESC,
-            year DESC,
-            question_number ASC
-
+        ORDER BY score DESC, year DESC, question_number ASC
         LIMIT 30
     """
 
-    query = text(sql)
-
-    # Execute query
     with engine.connect() as connection:
+        rows = connection.execute(text(sql), params).fetchall()
 
-        results = connection.execute(query, params)
-
-        rows = results.fetchall()
-
-    # Build HTML response
     html = f"""
     <html>
-
     <head>
-
-        <title>Search Results</title>
-
+        <title>Search Results - UPSC PYQ Search Engine</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
         <style>
-
-            body {{
-                font-family: Arial;
-                margin: 40px;
-                max-width: 900px;
-                line-height: 1.8;
-                background-color: #f5f5f5;
-                padding: 0 20px;;
-            }}
-
-            h1 {{
-                color: darkblue;
-                margin-bottom: 30px;
-            }}
-
-            .question {{
-                background-color: white;
-                margin-bottom: 40px;
-                margin-left: auto;
-                margin-right: auto;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                max-width: 800px;
-            }}
-
-            h2 {{
-                color: darkblue;
-            }}
-
-            .score {{
-                color: green;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }}
-
-            a {{
-                text-decoration: none;
-                color: darkblue;
-                font-weight: bold;
-            }}
-
-            mark {{
-                background-color: yellow;
-                padding: 2px;
-            }}
-
+            body {{ font-family: Arial; margin: 40px auto; max-width: 1300px; line-height: 1.8; background-color: #f5f5f5; padding: 0 20px; }}
+            h1 {{ color: darkblue; margin-bottom: 30px; }}
+            .question {{ background-color: white; margin-bottom: 40px; margin-left: auto; margin-right: auto; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 1200px; }}
+            h2 {{ color: darkblue; }}
+            .score {{ color: green; font-weight: bold; margin-bottom: 10px; }}
+            a {{ text-decoration: none; color: darkblue; font-weight: bold; }}
+            mark {{ background-color: yellow; padding: 2px; }}
         </style>
-
     </head>
-
     <body>
-
         <a href="/">← Back to Search</a>
-
         <h1>Search Results for: "{q}"</h1>
     """
 
-    # Add search results
     for row in rows:
-
         question_text = row.full_text
-
-        # Highlight search words
         for word in words:
-
-            pattern = re.compile(
-                re.escape(word),
-                re.IGNORECASE
-            )
-
-            question_text = pattern.sub(
-                lambda match:
-                f"<mark>{match.group(0)}</mark>",
-                question_text
-            )
-
-        # Convert line breaks
-        question_text = question_text.replace(
-            "\n",
-            "<br>"
-        )
+            pattern = re.compile(re.escape(word), re.IGNORECASE)
+            question_text = pattern.sub(lambda match: f"<mark>{match.group(0)}</mark>", question_text)
+        question_text = question_text.replace("\n", "<br>")
 
         html += f"""
         <div class="question">
-
-            <h2>
-                {row.year} • Question {row.question_number}
-            </h2>
-
-            <div class="score">
-                Match Score: {row.score}
-            </div>
-
+            <h2>{row.year} • Question {row.question_number}</h2>
+            <div class="score">Match Score: {row.score}</div>
             <p>{question_text}</p>
-
         </div>
         """
 
-    # No results case
     if len(rows) == 0:
+        html += "<h2>No matching questions found.</h2>"
 
-        html += """
-        <h2>No matching questions found.</h2>
-        """
-
-    html += """
-    </body>
-    </html>
-    """
-
+    html += "</body></html>"
     return html
