@@ -168,7 +168,7 @@ def home():
         <p class="tagline">
             Search UPSC Previous Year Questions instantly
             <br>
-            <span>Starting with Prelims Paper-1 — Mains on the way 🚀</span>
+            <span>2024 • 2025 • 2026 Prelims Paper-1 — Mains on the way</span>
         </p>
 
         <form action="/search" method="get">
