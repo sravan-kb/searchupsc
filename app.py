@@ -54,6 +54,7 @@ def home():
 
         <title>UPSC PYQ Search Engine - Search Previous Year Questions by Keyword</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="8WIKdRXWM0ZpkIXmwgJLsirphuXcjxTDAdOqAspD9Hk" />
         <meta name="description" content="Search UPSC Previous Year Questions by keyword. Find Prelims GS Paper 1 questions with year and question number instantly. Covers 2024, 2025, 2026.">
         <meta name="keywords" content="UPSC PYQ, UPSC previous year questions, UPSC prelims, IAS questions, UPSC search, UPSC 2024, UPSC 2025, UPSC 2026, UPSC GS Paper 1">
         <meta name="robots" content="index, follow">
