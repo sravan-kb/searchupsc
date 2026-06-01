@@ -2,7 +2,7 @@ import os
 import re
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from sqlalchemy import create_engine, text
 
 # Create FastAPI app
@@ -32,15 +32,16 @@ Sitemap: https://upsc-pyq-search.onrender.com/sitemap.xml"""
 
 
 # SITEMAP.XML
-@app.get("/sitemap.xml", response_class=HTMLResponse)
+@app.get("/sitemap.xml")
 def sitemap():
-    return """<?xml version="1.0" encoding="UTF-8"?>
+    content = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://upsc-pyq-search.onrender.com/</loc>
     <priority>1.0</priority>
   </url>
 </urlset>"""
+    return Response(content=content, media_type="application/xml")
 
 
 # HOME PAGE
