@@ -73,4 +73,4 @@ I am currently pursuing Big Data Analytics from CDAC and actively looking for a 
 
 ---
 
-With 💖 for ALL the Aspirants — built by someone who walked this road for 8 years.
+Built by someone who walked this road for 8 years.
