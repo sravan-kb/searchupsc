@@ -8,11 +8,8 @@ from sqlalchemy import create_engine, text
 # Create FastAPI app
 app = FastAPI()
 
-# PostgreSQL connection
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:projectdata@localhost:5432/upsc_questions"
-)
+# Get database URL from environment variable
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Create database engine
 engine = create_engine(DATABASE_URL)
