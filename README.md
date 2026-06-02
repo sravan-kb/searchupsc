@@ -7,22 +7,24 @@ A searchable database of UPSC Previous Year Questions created from UPSC PDFs usi
 🔗 **Live:** [searchupsc.onrender.com](https://searchupsc.onrender.com)
 
 ---
-
 ## Architecture
 
+```text
 UPSC PDF
-↓
+    ↓
 Tesseract OCR
-↓
+    ↓
 Question Extraction & Cleaning
-↓
+    ↓
 CSV Dataset
-↓
+    ↓
 PostgreSQL (Supabase)
-↓
+    ↓
 FastAPI Search Engine
-↓
+    ↓
 Render Deployment
+```
+
 
 ## Features
 
