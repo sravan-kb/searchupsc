@@ -28,7 +28,7 @@ def robots():
     return """User-agent: *
 Allow: /
 
-Sitemap: https://upsc-pyq-search.onrender.com/sitemap.xml"""
+Sitemap: https://searchupsc.onrender.com/sitemap.xml"""
 
 
 # SITEMAP.XML
@@ -37,7 +37,7 @@ def sitemap():
     content = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://upsc-pyq-search.onrender.com/</loc>
+    <loc>https://searchupsc.onrender.com/</loc>
     <priority>1.0</priority>
   </url>
 </urlset>"""
@@ -59,7 +59,7 @@ def home():
         <meta name="description" content="Search UPSC Previous Year Questions by keyword. Find Prelims GS Paper 1 questions with year and question number instantly. Covers 2024, 2025, 2026.">
         <meta name="keywords" content="UPSC PYQ, UPSC previous year questions, UPSC prelims, IAS questions, UPSC search, UPSC 2024, UPSC 2025, UPSC 2026, UPSC GS Paper 1">
         <meta name="robots" content="index, follow">
-        <link rel="canonical" href="https://upsc-pyq-search.onrender.com/">
+        <link rel="canonical" href="https://searchupsc.onrender.com/">
 
         <style>
 
