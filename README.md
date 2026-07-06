@@ -6,6 +6,10 @@ A searchable database of UPSC Previous Year Questions created from UPSC PDFs usi
 
 🔗 **Live:** [searchupsc.onrender.com](https://searchupsc.onrender.com)
 
+This repository's code is licensed under the MIT License (see [LICENSE](LICENSE)).
+
+The UPSC question content indexed by this project is sourced from official UPSC previous year question papers and remains the property of the Union Public Service Commission (UPSC). It is used here strictly for educational, non-commercial purposes to assist aspirants.
+
 ---
 ## Architecture
 
